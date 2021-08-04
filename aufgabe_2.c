@@ -23,5 +23,7 @@ int main(void)
 	i = 0;
 	while (i < 12)
 		printf("arr[%02d] = %8f\n", i++, *save++);
+	free(arr);
+	arr = NULL;
 	return (0);
 }
