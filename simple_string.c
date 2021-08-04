@@ -1,3 +1,4 @@
+#include "simple_string.h"
 #include <stddef.h>
 
 int count_chars(char *string)
@@ -6,7 +7,8 @@ int count_chars(char *string)
 	if (string == NULL)
 		return (-1);
 	count = 0;
-    while (string[count++]);
+    while (*string++)
+		count++;
     return count;
 }
 
@@ -14,12 +16,12 @@ int find_char(char *text, char c)
 {
    int i;
 
-	if (test == NULL)
+	if (text == NULL)
 		return (-1);
 	i = 0;
-	while (test && *text)
+	while (*text)
 	{
-		if (*test == c)
+		if (*text == c)
 			return (i);
 		i++;
 		text++;
