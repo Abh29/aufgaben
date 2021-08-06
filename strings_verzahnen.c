@@ -1,5 +1,4 @@
 #include "strings_verzahnen.h"
-#include <stdio.h>
 
 void	strings_verzahnen(char *verzahnt, char *string0, char *string1)
 {
