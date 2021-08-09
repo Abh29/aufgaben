@@ -36,6 +36,9 @@ typedef struct s_list
 }				t_list;
 
 
+void 	ft_printdata(t_data *data);
+void	ft_printlist(t_list *lst);
+
 
 /**********************utils**************************/
 
@@ -290,14 +293,15 @@ t_list	*ft_lstfilter(t_list *lst, t_auto *(*f)(t_auto *, void *), void *filter)
 {
 	t_list	*tmp;
 	t_list	*root;
-	void 	*cnt;
+	t_auto 	*cnt;
 
 	if (lst == NULL)
 		return (NULL);
+	root = NULL;
 	while (lst)
 	{
 		cnt = f(lst->content, filter);
-		if (cnt)
+		if (cnt != NULL)
 		{
 			tmp = ft_lstnew(cnt);
 			if (tmp == NULL)
@@ -329,7 +333,6 @@ void	ft_printlist(t_list *lst)
 	}
 	getchar();
 }
-
 
 int		ft_filesize(char *file)
 {
@@ -560,14 +563,13 @@ t_list	*ft_filterautos(t_data *data, t_list *lst)
 
 	out = lst;
 	if (data->k)
-		lst = ft_lstfilter(out, &ft_k, &(data->km));
+		out = ft_lstfilter(out, &ft_k, &(data->km));
 	if (data->j)
-		out = ft_lstfilter(lst, &ft_j, &(data->year));
+		out = ft_lstfilter(out, &ft_j, &(data->year));
 	if (data->b)
-		out = ft_lstfilter(lst, &ft_b, &(data->model));
+		out = ft_lstfilter(out, &ft_b, data->model);
 	return (out);
 }
-
 
 
 int main(int argc, char **argv)
@@ -584,7 +586,7 @@ int main(int argc, char **argv)
 	lst = ft_lstFromFile(&data);
 	if (lst == NULL)
 	 	ft_exit("Fehler : unexpected error when reading from the file !\n");
-	ft_filterautos(&data, lst);
+	lst = ft_filterautos(&data, lst);
 	ft_putdata(&data, lst);
 	return 0;
 }
