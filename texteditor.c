@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <getopt.h>
 #include <stdio.h>
-#include <stdio.h>
 
 #define STDOUT_FILENO 1
 #define STDERR_FILENO 2
