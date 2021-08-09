@@ -1,8 +1,11 @@
 #include <stddef.h>
 #include <stdlib.h>
-#include <unistd.h>
+#include <getopt.h>
+#include <stdio.h>
 #include <stdio.h>
 
+#define STDOUT_FILENO 1
+#define STDERR_FILENO 2
 
 typedef struct s_data
 {
@@ -30,16 +33,16 @@ int		ft_strlen(char *str)
 	return (i);
 }
 
-void	ft_putstr_fd(char *str, int fd)
+void	ft_putstr(char *str)
 {
 	if (str == NULL)
 		return ;
-	write(fd, str, ft_strlen(str));
+	fwrite(str, ft_strlen(str), 1, stdout);
 }
 
 void 	ft_exit(char *msg)
 {
-	ft_putstr_fd(msg, STDERR_FILENO);
+	ft_putstr(msg);
 	exit(1);
 }
 
@@ -120,9 +123,12 @@ void	ft_init(t_data *data)
 
 void 	ft_showHelpMsg()
 {
-	ft_putstr_fd("HELP :\n\t-w <num> show the text num times\n\
+	char *msg;
+
+	msg = "Hilfe :\n\t-w <num> show the text num times\n\
 	-h output this message \n\
-	-g output the text with all capital letters \n\n", STDOUT_FILENO);
+	-g output the text with all capital letters \n\n";
+	fwrite(msg, ft_strlen(msg), 1, stdout);
 	exit (0);
 }
 
@@ -141,18 +147,22 @@ void	ft_getdata(int argc, char **argv, t_data *data)
 		else if (ft_strcmp(*argv, "-w"))
 		{
 			if (i == argc)
-				ft_exit("Error : unsuficient arguments for -w !");
+				ft_exit("Fehler : unsuficient arguments for -w !");
 			argv++;
 			if (!ft_isnumber(*argv))
-				ft_exit("Error : expected a number after -w !");
+				ft_exit("Fehler : expected a number after -w !");
 			data->w = 1;
 			data->repeat = ft_strtonum(*argv);
 			if (data->repeat < 1)
-				ft_exit("Error : expected a positive integer after -w !");
+				ft_exit("Fehler : expected a positive integer after -w !");
 			i++;
 		}
+		else if (data->txt)
+			ft_exit("Fehler : more than one text !");
 		else
 			data->txt = *argv;
+		if (data->txt && *(data->txt) == '-')
+			ft_exit("Fehler : undefined option! ");
 		argv++;
 	}
 }
@@ -171,8 +181,7 @@ void	ft_putdata(t_data *data)
 	if (data->w)
 		rep = data->repeat;
 	while (rep--)
-		ft_putstr_fd(data->txt, STDOUT_FILENO);
-		
+		ft_putstr(data->txt);
 }
 
 int main(int argc, char **argv)
@@ -180,13 +189,12 @@ int main(int argc, char **argv)
 	t_data data;
 
 	if (argc < 2)
-		ft_exit("Error : expected more arguments !");
+		ft_exit("Fehler : expected more arguments !");
 	if (argc > 6)
-		ft_exit("Error : too many arguments !");
+		ft_exit("Fehler : too many arguments !");
 	ft_init(&data);
 	ft_getdata(argc, argv, &data);
 	ft_putdata(&data);
-	ft_putstr_fd("\n", STDOUT_FILENO);
+	ft_putstr("\n");
 	return 0;
 }
-
