@@ -1,29 +1,32 @@
 #include <string.h>
 #include <stdio.h>
 
-int string_suchen(char *text, char *string){
-    int text_laenge = strlen(text);
-    int string_laenge = strlen(text);
+int string_suchen(char *text, char *string)
+{
+	int		i;
+	char	*s1;
+	char	*s2;
 
+	if (text == NULL || string == NULL)
+		return (-1);
+	if (strlen(string) == 0)
+		return (0);
+	i = 0;
     // Iteriere über text.
-    for (int i = 0; i < text_laenge; i++){
-
-        // Prüfe, ob Zeichen von text an position i mit string übereinstimmen.
-        int alle_gleich = 0;
-        for (int j = 0; j < string_laenge; j++){
-            if (text[i + j] == string[j]){
-                alle_gleich = 1;
-            }else{
-                alle_gleich = 0;
-            }
-        }
-
-        // Wenn alle Zeichen gleich sind, dann wurde ein Treffer gefunden.
-        if (alle_gleich){
-            return i;
-        }
-    }
-
+	while (*text)
+	{
+		s1 = text;
+		s2 = string;
+		while (*s2 && *s2 == *s1)
+		{
+			s1++;
+			s2++;
+		}
+		if (*s2 == '\0')
+			return (i);
+		i++;
+		text++;
+	}
     // Kein Treffer gefunden, -1 zurückgeben
     return -1;
 }

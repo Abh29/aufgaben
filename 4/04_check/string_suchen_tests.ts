@@ -1,12 +1,24 @@
 #include "string_suchen.h"
 #include <stdio.h>
+#include <stddef.h>
 
-#test ente_ente
-    int position = string_suchen("Ente", "Ente");
 
-    ck_assert_int_eq(position, 0);
+#test null_string
+	ck_assert_int_eq(string_suchen("lorem ipsum dolor sit amet", NULL), -1);
+	ck_assert_int_eq(string_suchen(NULL, "lorem ipsum dolor sit amet"), -1);	
+	ck_assert_int_eq(string_suchen(NULL, NULL), -1);
 
-#test nichts_gefunden
-    int position = string_suchen("Ente", "xxxx");
+#test empty_string
+	ck_assert_int_eq(string_suchen("lorem ipsum dolor sit amet", ""), 0);
+	ck_assert_int_eq(string_suchen("", ""), 0);	
+	ck_assert_int_eq(string_suchen("", "lorem ipsum dolor sit amet"), -1);
 
-    ck_assert_int_eq(position, -1);
+#test basic_test
+	ck_assert_int_eq(string_suchen("lorem ipsum dolor sit amet", "lorem"), 0);
+	ck_assert_int_eq(string_suchen("lorem ipsum dolor sit amet", "ipsum"), 6);	
+	ck_assert_int_eq(string_suchen("lorem ipsum dolor sit amet amet.", "amet"), 22);
+	ck_assert_int_eq(string_suchen("lorem ipsum dolor sit amet amet.", "amet "), 22);
+	ck_assert_int_eq(string_suchen("lorem ipsum dolor sit amet amet.", "amet."), 27);
+	ck_assert_int_eq(string_suchen("lorem ipsum dolor sit amet amet.", "amet,"), -1);
+	
+
