@@ -1,1 +1,10 @@
- 
+b 67
+commands 1
+	silent
+	if x > 49
+		set var x = 49
+		continue
+		end
+	continue
+	end
+run
