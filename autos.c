@@ -167,8 +167,8 @@ char	**ft_split(char const *s, char c)
     if (s == NULL)
         return (NULL);
     out = malloc(sizeof(char *) * (ft_wordcount(s, c) + 1));
-    if (out == NULL)
-        return (NULL);
+	if (out == NULL)
+		return (NULL);
 	w = 0;
     while (*s)
     {

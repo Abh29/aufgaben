@@ -1,0 +1,1 @@
+void elefant(void);
