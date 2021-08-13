@@ -1,0 +1,8 @@
+2015-10-05 Kleinwagen Toyota
+1960-12-20 Bus Volkswagen
+2018-10-17 Kleinwagen Hyundai
+2003-05-18 Kleinwagen Ford
+2005-07-12 Kombi Nissan
+2007-06-07 Motorrad Honda
+2016-05-05 Kleinwagen Renault
+2021-06-28 Motorrad Suzuki
