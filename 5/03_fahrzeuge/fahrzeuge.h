@@ -2,25 +2,31 @@
 #define FAHRZEUGE_H
 
 #include "../02_datum/datum.h"
+#include <stdlib.h>
+#include <string.h>
 
 
 
 enum fahrzeug_model 
 {
-	Bus,
-	Kleinwagen,
-	Kombi,
-	Motorrad
+	BUS,
+	KLEINWAGEN,
+	KOMBI,
+	MOTORRAD
 };
 
 struct fahrzeug
 {
-	struct datum		date;
-	enum fahrzeug_model	model;
-	char				mnfctr[16];
-}
+	struct datum		baudatum;
+	enum fahrzeug_model	modell;
+	char				hersteller[16];
+};
 
-
+typedef struct s_list
+{
+	void			*content;
+	struct s_list	*next;
+}				t_list;
 
 
 
